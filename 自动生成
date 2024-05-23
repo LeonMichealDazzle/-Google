@@ -1,0 +1,34 @@
+import random
+import string
+
+def generate_username(length=10):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length)) + '@gmail.com'
+
+def generate_password(length=12):
+    characters = string.ascii_lowercase + string.ascii_uppercase + string.digits
+    while True:
+        password = ''.join(random.choice(characters) for i in range(length))
+        if (any(c.islower() for c in password) and
+                any(c.isupper() for c in password) and
+                any(c.isdigit() for c in password)):
+            return password
+
+def create_account():
+    username = generate_username()
+    password = generate_password()
+    return username, password
+
+def create_multiple_accounts(n=10):
+    accounts = []
+    for _ in range(n):
+        accounts.append(create_account())
+    return accounts
+
+# Example usage
+accounts = create_multiple_accounts(10)
+for i, (username, password) in enumerate(accounts, start=1):
+    print(f"Account {i}:")
+    print(f"Username: {username}")
+    print(f"Password: {password}")
+    print("")
